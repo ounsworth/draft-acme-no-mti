@@ -19,13 +19,14 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "ACME No Mandatory-To-Implement JWT Algorithm"
+abbrev: "acme-no-mti"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-ounsworth-acme-no-mti-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
+updates: 8555
 date:
 consensus: true
 v: 3
@@ -57,15 +58,20 @@ informative:
 
 --- abstract
 
-TODO Abstract
+The ACME protocol specified in RFC8555 requires all implementations to support the signature algorithm EDCSA-P256 (ES256) and recommends support for Ed25519. Due to the risk of quantum computers, this mandatory-to-implement algorithm is removed, leaving no MTI algorithms for the JWT layer of ACME and leaving this instead up to deployment configuration.
 
 
 --- middle
 
-# Introduction {#intro}
+# Update to RFC8555 {#intro}
 
-TODO Introduction
+Due to the impending risks of Cryptographically-Relevant Quantum Computers (CRQCs), {{!RFC8555}} is updated to remove the following sentence from Section 6.2:
 
+> An ACME server MUST implement the "ES256" signature algorithm
+   [RFC7518] and SHOULD implement the "EdDSA" signature algorithm using
+   the "Ed25519" variant (indicated by "crv") [RFC8037].
+
+It is replaced with nothing, acknowledging that any signature algorithm allowed by {{?RFC7518}} or its updates are allowed in ACME. The ACME Server is ultimately responsible for deciding which signature algorithms it will accept for ACME Client account keys.
 
 # Conventions and Definitions
 
@@ -74,7 +80,7 @@ TODO Introduction
 
 # Security Considerations {#security}
 
-TODO Security
+This document enhances security by removing the requirement for implementations to support soon-to-be-weak algorithms and defers responsibility for algorithm selection to both the JWT specification and ACME Server operators.
 
 
 # IANA Considerations {#iana}
